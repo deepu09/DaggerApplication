@@ -21,9 +21,7 @@ data class Decorator @Inject constructor(val displayName: String, val fn: (Strin
 
 class Processor @Inject constructor(private val decorators: Set<Decorator>) {
 
-    fun processor(string: String) {
-        fun processor(string: String) = decorators.map { it -> it.fn(string) }
-    }
+    fun processor(string: String)  = decorators.map { it -> it.fn(string) }
 }
 
 @Module
@@ -31,7 +29,7 @@ object ProcessorModule {
     @JvmStatic
     @Provides
     @IntoSet
-    fun providesDecorator() = Decorator("Sparkle", {s -> "*$s*"})
+    fun providesDecorator() = Decorator("Sparkle") { s -> "*$s*" }
 }
 
 class DAO private constructor() {
